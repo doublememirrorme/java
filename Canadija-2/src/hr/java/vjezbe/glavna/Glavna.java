@@ -1,45 +1,96 @@
 package hr.java.vjezbe.glavna;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
+import hr.java.vjezbe.entitet.FakultetRacunarstva;
 import hr.java.vjezbe.entitet.Ispit;
-import hr.java.vjezbe.entitet.Predmet;
-import hr.java.vjezbe.entitet.Profesor;
+import hr.java.vjezbe.entitet.ObrazovnaUstanova;
 import hr.java.vjezbe.entitet.Student;
+import hr.java.vjezbe.entitet.VeleucilisteJave;
+import hr.java.vjezbe.entitet.Visokoskolska;
 
 public class Glavna {
-
-	private static final int BROJ_PROFESORA = 2;
-	private static final int BROJ_PREDMETA = 3;
-	private static final int BROJ_STUDENATA = 2;
-	private static final int BROJ_ISPITNIH_ROKOVA = 1;
-	
 	
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
-		Profesor[] profesori = new Profesor[BROJ_PROFESORA];
-		Predmet[] predmeti = new Predmet[BROJ_PREDMETA];
-		Student[] studenti = new Student[BROJ_STUDENATA];
-		Ispit[] ispitniRokovi = new Ispit[BROJ_ISPITNIH_ROKOVA];
+		
+		System.out.println("Unesite broj obrazovnih ustanova: ");
+		ObrazovnaUstanova[] obrazovneUstanove = new ObrazovnaUstanova[scanner.nextInt()];
+		scanner.nextLine();
 
-		for (int i = 0; i < BROJ_PROFESORA; i++) {
-			profesori[i] = Profesor.unosProfesora(scanner, i);
+		for (int i = 0; i < obrazovneUstanove.length; i++) {
+			obrazovneUstanove[i] = ObrazovnaUstanova.unosObrazovneUstanove(scanner);
+			
+			for (Student student : obrazovneUstanove[i].getStudenti()) {
+				String fullName = student.getIme() + " " + student.getPrezime();
+				String tipStudija = obrazovneUstanove[i] instanceof VeleucilisteJave
+						? "zavrsnog"
+						: obrazovneUstanove[i] instanceof FakultetRacunarstva
+							? "diplomskog"
+							: null;
+				
+				System.out.println("Unesite ocjenu " + tipStudija + " rada za studenta: " + fullName);
+				int ocjenaPismenog =  scanner.nextInt();
+				scanner.nextLine();
+				
+				System.out.println("Unesite ocjenu obrane " + tipStudija + " rada za studenta: " + fullName);
+				int ocjenaObrane =  scanner.nextInt();
+				scanner.nextLine();
+				
+				BigDecimal konacnaOcjenaStudija = new BigDecimal(1);
+				
+				if (obrazovneUstanove[i] instanceof VeleucilisteJave) {
+					konacnaOcjenaStudija =
+						((VeleucilisteJave) obrazovneUstanove[i])
+						.izracunajKonacnuOcjenuStudijaZaStudenta(
+							((Visokoskolska) obrazovneUstanove[i])
+								.filtrirajIspitePoStudentu(obrazovneUstanove[i].getIspiti(), student),
+							ocjenaPismenog,
+							ocjenaObrane);
+				}
+				
+				if (obrazovneUstanove[i] instanceof FakultetRacunarstva) {
+					konacnaOcjenaStudija =
+						((FakultetRacunarstva) obrazovneUstanove[i])
+						.izracunajKonacnuOcjenuStudijaZaStudenta(
+							((Visokoskolska) obrazovneUstanove[i])
+								.filtrirajIspitePoStudentu(obrazovneUstanove[i].getIspiti(), student),
+							ocjenaPismenog,
+							ocjenaObrane);
+				}
+			
+				System.out.println("Koncana ocjena studija za studenta " + fullName + " je " + konacnaOcjenaStudija);
+			}
+			
+			
+			Student najuspjesnijiStudent = null;
+			if (obrazovneUstanove[i] instanceof VeleucilisteJave) {
+				najuspjesnijiStudent = ((VeleucilisteJave) obrazovneUstanove[i]).odrediNajuspjesnijegStudentaNaGodini(2018);
+			}
+			
+			else if (obrazovneUstanove[i] instanceof FakultetRacunarstva) {
+				najuspjesnijiStudent = ((FakultetRacunarstva) obrazovneUstanove[i]).odrediNajuspjesnijegStudentaNaGodini(2018);				
+			}
+			
+			
+			if (najuspjesnijiStudent != null) {
+				System.out.println(
+						"Najbolji student 2018. godine je " +
+								najuspjesnijiStudent.getIme() + " " + najuspjesnijiStudent.getPrezime() + " " +
+								"JMBAG: " + najuspjesnijiStudent.getJmbag());				
+			}
+			
+			if (obrazovneUstanove[i] instanceof FakultetRacunarstva) {
+				Student studentZaRektorskuNagradu = ((FakultetRacunarstva) obrazovneUstanove[i]).odrediStudentaZaRektorovuNagradu();
+
+				System.out.println(
+						"Student koji je osvojio rektorovu nagradu je: " +
+						studentZaRektorskuNagradu.getIme() + " " + studentZaRektorskuNagradu.getPrezime() +
+						"JMBAG: " + studentZaRektorskuNagradu.getJmbag());
+			}
 		}
-		
-		for (int i = 0; i < BROJ_PREDMETA; i++) {
-			predmeti[i] = Predmet.unosPredmeta(scanner, i, profesori);
-		}
-		
-		for (int i = 0; i < BROJ_STUDENATA; i++) {
-			studenti[i] = Student.unosStudenta(scanner, i);
-		}
-		
-		for (int i = 0; i < BROJ_ISPITNIH_ROKOVA; i++) {
-			ispitniRokovi[i] = Ispit.unosIspitnogRoka(scanner, i, predmeti, profesori, studenti);
-		}
-		
-		Ispit.pronadiIzvrse(ispitniRokovi);
+
 	}
-
 }

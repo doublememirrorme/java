@@ -85,7 +85,7 @@ public class Ispit {
 	public static void pronadiIzvrse(Ispit[] ispitniRokovi) {
 
 		for (Ispit ispit : ispitniRokovi) {
-			if (ispit.ocjena == 5)
+			if (ispit.ocjena.equals(5))
 				System.out.println(
 					"Student " + ispit.student.getPrezime() + " " + ispit.student.getIme() +
 					"je ostvario ocjenu 'izvrstan' na predmetu '" + ispit.predmet.getNaziv() + "'");

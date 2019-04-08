@@ -2,40 +2,21 @@ package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class Student {
+public class Student extends Osoba {
 
-	private String ime;
-	private String prezime;
 	private String jmbag;
 	private LocalDate datumRodenja;
 	
 	
 	public Student(String ime, String prezime, String jmbag, LocalDate datumRodenja) {
-		super();
-		this.ime = ime;
-		this.prezime = prezime;
+		super(ime, prezime);
 		this.jmbag = jmbag;
 		this.datumRodenja = datumRodenja;
 	}
-
-
-	public String getIme() {
-		return ime;
-	}
-
-	public void setIme(String ime) {
-		this.ime = ime;
-	}
-
-	public String getPrezime() {
-		return prezime;
-	}
-
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
-	}
+	
 
 	public String getJmbag() {
 		return jmbag;
@@ -61,21 +42,25 @@ public class Student {
 
 		System.out.println("Unesite ime studenta: ");
 		String ime = scanner.nextLine();
+		if (ime == null || ime.equals("")) return null;
 
 		System.out.println("Unesite prezime studenta: ");
 		String prezime = scanner.nextLine();
+		if (prezime == null || prezime.equals("")) return null;
 
 		System.out.println(
 				"Unesite datum rodenja studenta '" +
 				prezime + " " + ime +
 				"' u formatu(dd.MM.yyyy): ");
 		String datumRodenjaString = scanner.nextLine();
+		if (datumRodenjaString == null || datumRodenjaString.equals("")) return null;
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		LocalDate datumRodenja = LocalDate.parse(datumRodenjaString, formatter);
 
 		System.out.println("Unesite jmbag studenta: ");
 		String jmbag = scanner.nextLine();
+		if (jmbag == null || datumRodenjaString.equals("")) return null;
 		
 		return new Student(ime, prezime, jmbag, datumRodenja);
 	}
@@ -104,5 +89,11 @@ public class Student {
 		} while (odabir < 0 || odabir >= studenti.length);
 		
 		return studenti[odabir];
+	}
+
+
+	public static void sortiraj(Student[] studenti) {
+		Arrays.sort(studenti, (s1, s2) -> s1.getIme().compareTo(s2.getIme()));
+		Arrays.sort(studenti, (s1, s2) -> s1.getPrezime().compareTo(s2.getPrezime()));
 	}
 }
