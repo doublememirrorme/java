@@ -1,7 +1,7 @@
 package hr.java.vjezbe.entitet;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 import hr.java.vjezbe.utils.Unos;
@@ -73,8 +73,8 @@ public class Ispit {
 	 * @return novi ispit inicijaliziran prema unesenim podacima
 	 */
 	public static Ispit unosIspitnogRoka(
-			Scanner scanner, int redniBroj, Predmet[] predmeti,
-			Profesor[] profesori, Student[] studenti)
+			Scanner scanner, int redniBroj, List<Predmet> predmeti,
+			List<Profesor> profesori, List<Student> studenti)
 	{
 		redniBroj++;
 		
@@ -87,7 +87,7 @@ public class Ispit {
 		do {
 			ocjena = Unos.unos(scanner, "Unesite ocjenu na ispitu(1 - 5): ");			
 		
-		} while (ocjena < 1 || ocjena > 5);
+		} while (ocjena < Ocjena.NEDOVOLJAN.getOcjena() || ocjena > Ocjena.IZVRSTAN.getOcjena());
 
 		LocalDateTime datumIVrijeme = Unos.unosDatumaIVremena(
 				scanner,
@@ -103,10 +103,10 @@ public class Ispit {
 	 * @param ispitniRokovi lista ispita
 	 * 
 	 */
-	public static void pronadiIzvrse(Ispit[] ispitniRokovi) {
+	public static void pronadiIzvrse(List<Ispit> ispitniRokovi) {
 
 		for (Ispit ispit : ispitniRokovi) {
-			if (ispit.ocjena.equals(5))
+			if (ispit.ocjena.equals(Ocjena.IZVRSTAN.getOcjena()))
 				System.out.println(
 					"Student " + ispit.student.getPrezime() + " " + ispit.student.getIme() +
 					"je ostvario ocjenu 'izvrstan' na predmetu '" + ispit.predmet.getNaziv() + "'");

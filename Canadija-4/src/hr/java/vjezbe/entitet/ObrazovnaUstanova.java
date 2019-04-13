@@ -1,7 +1,10 @@
 package hr.java.vjezbe.entitet;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import hr.java.vjezbe.sortiranje.StudentSorter;
 import hr.java.vjezbe.utils.Unos;
 
 /**
@@ -18,13 +21,14 @@ public abstract class ObrazovnaUstanova {
 	private static final int BROJ_ISPITNIH_ROKOVA = 2;
 
 	private String naziv;
-	Profesor[] profesori;
-	Predmet[] predmeti;
-	Student[] studenti;
-	Ispit[] ispiti;
+	List<Profesor> profesori;
+	List<Predmet> predmeti;
+	List<Student> studenti;
+	List<Ispit> ispiti;
 
 	
-	public ObrazovnaUstanova(Predmet[] predmeti, Profesor[] profesori, Student[] studenti, Ispit[] ispiti) {
+	public ObrazovnaUstanova(
+			List<Predmet> predmeti, List<Profesor> profesori, List<Student> studenti, List<Ispit> ispiti) {
 		super();
 		this.predmeti = predmeti;
 		this.profesori = profesori;
@@ -48,26 +52,38 @@ public abstract class ObrazovnaUstanova {
 	 * @return novu obrazovnu ustanovu
 	 */
 	public static ObrazovnaUstanova unosObrazovneUstanove(Scanner scanner) {
-		Profesor[] profesori = new Profesor[BROJ_PROFESORA];
-		Predmet[] predmeti = new Predmet[BROJ_PREDMETA];
-		Student[] studenti = new Student[BROJ_STUDENATA];
-		Ispit[] ispiti = new Ispit[BROJ_ISPITNIH_ROKOVA];
+		List<Profesor> profesori = new ArrayList<>();
+		List<Predmet> predmeti = new ArrayList<>();
+		List<Student> studenti = new ArrayList<>();
+		List<Ispit> ispiti = new ArrayList<>();
 		
 		for (int i = 0; i < BROJ_PROFESORA; i++) {
-			 profesori[i] = Profesor.unosProfesora(scanner, i);
+			 profesori.add(Profesor.unosProfesora(scanner, i));
 		}
 		
 		for (int i = 0; i < BROJ_PREDMETA; i++) {
-			predmeti[i] = Predmet.unosPredmeta(scanner, i, profesori);
+			predmeti.add(Predmet.unosPredmeta(scanner, i, profesori));
 		}
 		
 		for (int i = 0; i < BROJ_STUDENATA; i++) {
-			studenti[i] = Student.unosStudenta(scanner, i);
+			studenti.add(Student.unosStudenta(scanner, i));
 		}
 		
 		for (int i = 0; i < BROJ_ISPITNIH_ROKOVA; i++) {
-			ispiti[i] = Ispit.unosIspitnogRoka(scanner, i, predmeti, profesori, studenti);
+			ispiti.add(Ispit.unosIspitnogRoka(scanner, i, predmeti, profesori, studenti));
 		}
+		
+		predmeti.forEach(predmet -> {
+			System.out.println(predmet.getStudent().isEmpty()
+					? "Nema studenata upisanih na predmet '" + predmet.getNaziv()
+					: "Studenti upisani na predmet '" + predmet.getNaziv() + "' su:");
+			
+			if (!predmet.getStudent().isEmpty())
+				predmet
+					.getSortedStudent()
+					.forEach(student -> System.out.println(student.getIme() + " " + student.getPrezime()));
+		});
+		
 
 		
 		int tipUstanove = Unos.unos(scanner,
@@ -99,35 +115,35 @@ public abstract class ObrazovnaUstanova {
 		this.naziv = naziv;
 	}
 
-	public Predmet[] getPredmeti() {
+	public List<Predmet> getPredmeti() {
 		return predmeti;
 	}
 
-	public void setPredmeti(Predmet[] predmeti) {
+	public void setPredmeti(List<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
 
-	public Profesor[] getProfesori() {
+	public List<Profesor> getProfesori() {
 		return profesori;
 	}
 
-	public void setProfesori(Profesor[] profesori) {
+	public void setProfesori(List<Profesor> profesori) {
 		this.profesori = profesori;
 	}
 
-	public Student[] getStudenti() {
+	public List<Student> getStudenti() {
 		return studenti;
 	}
 
-	public void setStudenti(Student[] studenti) {
+	public void setStudenti(List<Student> studenti) {
 		this.studenti = studenti;
 	}
 
-	public Ispit[] getIspiti() {
+	public List<Ispit> getIspiti() {
 		return ispiti;
 	}
 
-	public void setIspiti(Ispit[] ispiti) {
+	public void setIspiti(List<Ispit> ispiti) {
 		this.ispiti = ispiti;
 	}
 

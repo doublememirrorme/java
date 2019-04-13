@@ -1,5 +1,6 @@
 package hr.java.vjezbe.entitet;
 
+import java.util.List;
 import java.util.Scanner;
 
 import hr.java.vjezbe.utils.Unos;
@@ -66,17 +67,17 @@ public class Profesor extends Osoba {
 	 * @param profesori lista profesora
 	 * @return odabranog profesora
 	 */
-	public static Profesor odabirProfesora(Scanner scanner, Profesor[] profesori) {
+	public static Profesor odabirProfesora(Scanner scanner, List<Profesor> profesori) {
 		int odabir = 0;
 		
 		do {
 			
 			System.out.println("Odaberite profesora: ");
 			
-			for (int i = 0; i < profesori.length; i++) {
+			for (int i = 0; i < profesori.size(); i++) {
 				System.out.println(
 						(i + 1) + ". " +
-						profesori[i].getPrezime() + " " + profesori[i].getPrezime()
+						profesori.get(i).getPrezime() + " " + profesori.get(i).getPrezime()
 				);
 			}
 			
@@ -84,8 +85,8 @@ public class Profesor extends Osoba {
 
 			odabir =  odabir - 1;
 
-		} while (odabir < 0 || odabir >= profesori.length);
+		} while (odabir < 0 || odabir >= profesori.size());
 		
-		return profesori[odabir];
+		return profesori.get(odabir);
 	}
 }

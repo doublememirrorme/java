@@ -1,7 +1,8 @@
 package hr.java.vjezbe.entitet;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import hr.java.vjezbe.iznimke.NemoguceOdreditiProsjekStudenta;
 
@@ -21,7 +22,7 @@ public interface Visokoskolska {
 	 * @param ocjenaZavrsnogRadaObrana ocjena obrane zavrsnog rada
 	 * @return konacnu ocjenu za studenta
 	 */
-	public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(Ispit[] ispiti, int ocjenaZavrsnogRadaPismeniDio, int ocjenaZavrsnogRadaObrana);
+	public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(List<Ispit> ispiti, int ocjenaZavrsnogRadaPismeniDio, int ocjenaZavrsnogRadaObrana);
 	
 	/**
 	 * Odreduje prosjek ocjena na ispitima
@@ -30,13 +31,13 @@ public interface Visokoskolska {
 	 * @return prosjek ocjena na ispitima
 	 * @throws NemoguceOdreditiProsjekStudenta kada je neka od ocjena na ispitima negativna
 	 */
-	default public BigDecimal odrediProsjekOcjenaNaIspitima(Ispit[] ispiti) throws NemoguceOdreditiProsjekStudenta {
+	default public BigDecimal odrediProsjekOcjenaNaIspitima(List<Ispit> ispiti) throws NemoguceOdreditiProsjekStudenta {
 		
 //		Ispit[] polozeniIspiti = filtrirajPolozeneIspite(ispiti);
 		BigDecimal ocjene = new BigDecimal(0);
 		
 		for (Ispit ispit : ispiti) {
-			if (ispit.getOcjena().equals(1)) {
+			if (ispit.getOcjena().equals(Ocjena.NEDOVOLJAN.getOcjena())) {
 				throw new NemoguceOdreditiProsjekStudenta(
 						"Student: " + ispit.getStudent().getJmbag() + " " +
 						ispit.getStudent().getPrezime() + " " + ispit.getStudent().getIme() +
@@ -45,7 +46,7 @@ public interface Visokoskolska {
 			ocjene.add(new BigDecimal(ispit.getOcjena()));
 		}
 		
-		return ocjene.divide(new BigDecimal(ispiti.length > 0 ? ispiti.length : 1));
+		return ocjene.divide(new BigDecimal(ispiti.size() > 0 ? ispiti.size() : 1));
 	}
 	
 	/**
@@ -54,25 +55,25 @@ public interface Visokoskolska {
 	 * @param ispiti lista ispita
 	 * @return sve ispite na kojima je ocjena veca od negativne
 	 */
-	private Ispit[] filtrirajPolozeneIspite(Ispit[] ispiti) {
-		return Arrays
-				.stream(ispiti)
+	private List<Ispit> filtrirajPolozeneIspite(List<Ispit> ispiti) {
+		return ispiti
+				.stream()
 				.filter(ispit -> ispit.getOcjena() > 1)
-				.toArray(Ispit[]::new);
+				.collect(Collectors.toList());
 	};
 	
 	/**
 	 * Filtrira listu ispita prema studentu
 	 * 
-	 * @param ispiti lista ispita
+	 * @param list lista ispita
 	 * @param student student za pretragu
 	 * @return listu ispita za odredenog studenta
 	 */
-	default public Ispit[] filtrirajIspitePoStudentu(Ispit[] ispiti, Student student) {
-		return Arrays
-				.stream(ispiti)
+	default public List<Ispit> filtrirajIspitePoStudentu(List<Ispit> ispiti, Student student) {	
+		return ispiti
+				.stream()
 				.filter(ispit -> ispit.getStudent().getJmbag().equals(student.getJmbag()))
-				.toArray(Ispit[]::new);
+				.collect(Collectors.toList());
 	}
 }
  

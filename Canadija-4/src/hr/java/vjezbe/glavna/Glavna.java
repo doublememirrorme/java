@@ -1,6 +1,8 @@
 package hr.java.vjezbe.glavna;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -21,17 +23,18 @@ public class Glavna {
 
 		Scanner scanner = new Scanner(System.in);
 				
-		ObrazovnaUstanova[] obrazovneUstanove =
-				new ObrazovnaUstanova[Unos.unos(scanner, "Unesite broj obrazovnih ustanova: ")];
+		final int brojObrazovnihUstanova = Unos.unos(scanner, "Unesite broj obrazovnih ustanova: ");
+		List<ObrazovnaUstanova> obrazovneUstanove = new ArrayList<>();
+		
 
-		for (int i = 0; i < obrazovneUstanove.length; i++) {
-			obrazovneUstanove[i] = ObrazovnaUstanova.unosObrazovneUstanove(scanner);
+		for (int i = 0; i < brojObrazovnihUstanova; i++) {
+			obrazovneUstanove.add(ObrazovnaUstanova.unosObrazovneUstanove(scanner));
 			
-			for (Student student : obrazovneUstanove[i].getStudenti()) {
+			for (Student student : obrazovneUstanove.get(i).getStudenti()) {
 				String fullName = student.getIme() + " " + student.getPrezime();
-				String tipStudija = obrazovneUstanove[i] instanceof VeleucilisteJave
+				String tipStudija = obrazovneUstanove.get(i) instanceof VeleucilisteJave
 						? "zavrsnog"
-						: obrazovneUstanove[i] instanceof FakultetRacunarstva
+						: obrazovneUstanove.get(i) instanceof FakultetRacunarstva
 							? "diplomskog"
 							: null;
 				
@@ -43,37 +46,39 @@ public class Glavna {
 				
 				BigDecimal konacnaOcjenaStudija = new BigDecimal(1);
 				
-				if (obrazovneUstanove[i] instanceof VeleucilisteJave) {
+				if (obrazovneUstanove.get(i) instanceof VeleucilisteJave) {
 					konacnaOcjenaStudija =
-						((VeleucilisteJave) obrazovneUstanove[i])
+						((VeleucilisteJave) obrazovneUstanove.get(i))
 						.izracunajKonacnuOcjenuStudijaZaStudenta(
-							((Visokoskolska) obrazovneUstanove[i])
-								.filtrirajIspitePoStudentu(obrazovneUstanove[i].getIspiti(), student),
+							((Visokoskolska) obrazovneUstanove.get(i))
+								.filtrirajIspitePoStudentu(obrazovneUstanove.get(i).getIspiti(), student),
 							ocjenaPismenog,
 							ocjenaObrane);
 				}
 				
-				if (obrazovneUstanove[i] instanceof FakultetRacunarstva) {
+				if (obrazovneUstanove.get(i) instanceof FakultetRacunarstva) {
 					konacnaOcjenaStudija =
-						((FakultetRacunarstva) obrazovneUstanove[i])
+						((FakultetRacunarstva) obrazovneUstanove.get(i))
 						.izracunajKonacnuOcjenuStudijaZaStudenta(
-							((Visokoskolska) obrazovneUstanove[i])
-								.filtrirajIspitePoStudentu(obrazovneUstanove[i].getIspiti(), student),
+							((Visokoskolska) obrazovneUstanove.get(i))
+								.filtrirajIspitePoStudentu(obrazovneUstanove.get(i).getIspiti(), student),
 							ocjenaPismenog,
 							ocjenaObrane);
 				}
 			
-				System.out.println("Koncana ocjena studija za studenta " + fullName + " je " + konacnaOcjenaStudija);
+				System.out.println(
+						"Koncana ocjena studija za studenta " + fullName +
+						" je " + konacnaOcjenaStudija);
 			}
 			
 			
 			Student najuspjesnijiStudent = null;
-			if (obrazovneUstanove[i] instanceof VeleucilisteJave) {
-				najuspjesnijiStudent = ((VeleucilisteJave) obrazovneUstanove[i]).odrediNajuspjesnijegStudentaNaGodini(2018);
+			if (obrazovneUstanove.get(i) instanceof VeleucilisteJave) {
+				najuspjesnijiStudent = ((VeleucilisteJave) obrazovneUstanove.get(i)).odrediNajuspjesnijegStudentaNaGodini(2018);
 			}
 			
-			else if (obrazovneUstanove[i] instanceof FakultetRacunarstva) {
-				najuspjesnijiStudent = ((FakultetRacunarstva) obrazovneUstanove[i]).odrediNajuspjesnijegStudentaNaGodini(2018);				
+			else if (obrazovneUstanove.get(i) instanceof FakultetRacunarstva) {
+				najuspjesnijiStudent = ((FakultetRacunarstva) obrazovneUstanove.get(i)).odrediNajuspjesnijegStudentaNaGodini(2018);				
 			}
 			
 			
@@ -84,8 +89,9 @@ public class Glavna {
 								"JMBAG: " + najuspjesnijiStudent.getJmbag());				
 			}
 			
-			if (obrazovneUstanove[i] instanceof FakultetRacunarstva) {
-				Student studentZaRektorskuNagradu = ((FakultetRacunarstva) obrazovneUstanove[i]).odrediStudentaZaRektorovuNagradu();
+			if (obrazovneUstanove.get(i) instanceof FakultetRacunarstva) {
+				Student studentZaRektorskuNagradu =
+						((FakultetRacunarstva) obrazovneUstanove.get(i)).odrediStudentaZaRektorovuNagradu();
 
 				if (studentZaRektorskuNagradu != null) {
 					System.out.println(

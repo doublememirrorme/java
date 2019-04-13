@@ -1,7 +1,8 @@
 package hr.java.vjezbe.entitet;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class FakultetRacunarstva extends ObrazovnaUstanova implements Diplomski 
 	 * @param studenti predstavlja sve studente
 	 * @param ispiti predstavlja sve ispite
 	 */
-	public FakultetRacunarstva(Predmet[] predmeti, Profesor[] profesori, Student[] studenti, Ispit[] ispiti) {
+	public FakultetRacunarstva(List<Predmet> predmeti, List<Profesor> profesori, List<Student> studenti, List<Ispit> ispiti) {
 		super(predmeti, profesori, studenti, ispiti);
 	}
 
@@ -42,14 +43,16 @@ public class FakultetRacunarstva extends ObrazovnaUstanova implements Diplomski 
 	 *
 	 */
 	@Override
-	public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(Ispit[] ispiti, int ocjenaDiplomskogRadaPismeniDio,
+	public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(List<Ispit> ispiti, int ocjenaDiplomskogRadaPismeniDio,
 			int ocjenaDiplomskogRadaObrana) {
 
 		BigDecimal vrijednost = new BigDecimal(1);
 
 		try {
-			vrijednost = odrediProsjekOcjenaNaIspitima(ispiti).multiply(new BigDecimal(3))
-					.add(new BigDecimal(ocjenaDiplomskogRadaPismeniDio)).add(new BigDecimal(ocjenaDiplomskogRadaObrana))
+			vrijednost = odrediProsjekOcjenaNaIspitima(ispiti)
+					.multiply(new BigDecimal(3))
+					.add(new BigDecimal(ocjenaDiplomskogRadaPismeniDio))
+					.add(new BigDecimal(ocjenaDiplomskogRadaObrana))
 					.divide(new BigDecimal(5));
 
 		} catch (NemoguceOdreditiProsjekStudenta e) {
@@ -71,7 +74,8 @@ public class FakultetRacunarstva extends ObrazovnaUstanova implements Diplomski 
 	public Student odrediStudentaZaRektorovuNagradu() throws PostojiViseNajmladjihStudenataException {
 		Student najuspjesnijiStudent = null;
 		BigDecimal maxProsjek = new BigDecimal(0);
-		Student[] najuspjesnijiStudenti = new Student[1];
+//		List<Student> najuspjesnijiStudenti = new Student[1];
+		List<Student> najuspjesnijiStudenti = new ArrayList<>();
 
 		for (Student student : this.getStudenti()) {
 			BigDecimal prosjek = new BigDecimal(0);
@@ -91,19 +95,19 @@ public class FakultetRacunarstva extends ObrazovnaUstanova implements Diplomski 
 					if (student.getDatumRodenja().isAfter(najuspjesnijiStudent.getDatumRodenja())) {
 						maxProsjek = prosjek;
 						najuspjesnijiStudent = student;
-						najuspjesnijiStudenti = Arrays.copyOf(najuspjesnijiStudenti, 1);
-						najuspjesnijiStudenti[0] = najuspjesnijiStudent;
+						najuspjesnijiStudenti.clear();
+						najuspjesnijiStudenti.add(najuspjesnijiStudent);
 					}
 
 					if (student.getDatumRodenja().equals(najuspjesnijiStudent.getDatumRodenja())) {
-						najuspjesnijiStudenti = Arrays.copyOf(najuspjesnijiStudenti, najuspjesnijiStudenti.length + 1);
+						najuspjesnijiStudenti.add(student);
 					}
 
 				}
 			}
 		}
 		
-		if (najuspjesnijiStudenti.length > 1) {
+		if (najuspjesnijiStudenti.size() > 1) {
 			String listaStudenata = "";
 			
 			for (Student student : najuspjesnijiStudenti) {
@@ -138,7 +142,7 @@ public class FakultetRacunarstva extends ObrazovnaUstanova implements Diplomski 
 			int brojacIzvrsnihOcjena = 0;
 
 			for (Ispit ispit : filtrirajIspitePoStudentu(this.getIspiti(), student)) {
-				if (ispit.getOcjena().equals(5)) {
+				if (ispit.getOcjena().equals(Ocjena.IZVRSTAN.getOcjena())) {
 					brojacIzvrsnihOcjena++;
 				}
 			}

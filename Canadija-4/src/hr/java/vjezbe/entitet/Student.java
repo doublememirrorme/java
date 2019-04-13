@@ -1,7 +1,7 @@
 package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 import hr.java.vjezbe.utils.Unos;
@@ -39,6 +39,38 @@ public class Student extends Osoba {
 
 	public void setDatumRodenja(LocalDate datumRodenja) {
 		this.datumRodenja = datumRodenja;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((datumRodenja == null) ? 0 : datumRodenja.hashCode());
+		result = prime * result + ((jmbag == null) ? 0 : jmbag.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (datumRodenja == null) {
+			if (other.datumRodenja != null)
+				return false;
+		} else if (!datumRodenja.equals(other.datumRodenja))
+			return false;
+		if (jmbag == null) {
+			if (other.jmbag != null)
+				return false;
+		} else if (!jmbag.equals(other.jmbag))
+			return false;
+		return true;
 	}
 
 
@@ -81,17 +113,17 @@ public class Student extends Osoba {
 	 * @param studenti lista studenata
 	 * @return odabrani student
 	 */
-	public static Student odabirStudenta(Scanner scanner, Student[] studenti) {
+	public static Student odabirStudenta(Scanner scanner, List<Student> studenti) {
 		int odabir = 0;
 		
 		do {
 			
 			System.out.println("Odaberite studenta: ");
 			
-			for (int i = 0; i < studenti.length; i++) {
+			for (int i = 0; i < studenti.size(); i++) {
 				System.out.println(
 						(i + 1) + ". " +
-						studenti[i].getPrezime() + " " + studenti[i].getIme()
+						studenti.get(i).getPrezime() + " " + studenti.get(i).getIme()
 				);
 			}
 			
@@ -99,8 +131,8 @@ public class Student extends Osoba {
 
 			odabir -= 1;
 
-		} while (odabir < 0 || odabir >= studenti.length);
+		} while (odabir < 0 || odabir >= studenti.size());
 		
-		return studenti[odabir];
+		return studenti.get(odabir);
 	}
 }

@@ -1,6 +1,7 @@
 package hr.java.vjezbe.entitet;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class VeleucilisteJave extends ObrazovnaUstanova implements Visokoskolska
 	
 	private static final Logger log = LoggerFactory.getLogger(ObrazovnaUstanova.class);
 	
-	public VeleucilisteJave(Predmet[] predmeti, Profesor[] profesori, Student[] studenti, Ispit[] ispiti) {
+	public VeleucilisteJave(List<Predmet> predmeti, List<Profesor> profesori, List<Student> studenti, List<Ispit> ispiti) {
 		super(predmeti, profesori, studenti, ispiti);
 	}
 
@@ -31,7 +32,7 @@ public class VeleucilisteJave extends ObrazovnaUstanova implements Visokoskolska
 	 */
 	@Override
 	public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(
-			Ispit[] ispiti, int ocjenaZavrsnogRadaPismeniDio, int ocjenaZavrsnogRadaObrana)
+			List<Ispit> ispiti, int ocjenaZavrsnogRadaPismeniDio, int ocjenaZavrsnogRadaObrana)
 	{
 		BigDecimal vrijednost = new BigDecimal(1);
 		
