@@ -131,3 +131,47 @@ Ispit: sadv: 1
 	at hr.java.vjezbe.glavna.Glavna.main(Glavna.java:88)
 2019-04-06 17:44:35,811 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
 2019-04-06 17:44:36,401 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:38:36,676 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:38:37,197 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:38:37,713 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:38:56,271 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:38:56,816 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 12
+2019-04-13 15:38:57,346 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:38:57,974 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:39:00,106 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:39:00,519 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 12
+2019-04-13 15:39:01,194 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:39:01,571 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:39:03,761 ERROR main hr.java.vjezbe.utils.Unos - Neispravan datum
+2019-04-13 15:39:08,951 ERROR main hr.java.vjezbe.utils.Unos - Neispravan datum
+2019-04-13 15:39:23,916 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:39:25,297 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:39:26,595 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 4
+2019-04-13 15:39:32,067 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 3
+2019-04-13 15:39:32,807 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:39:33,657 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:39:34,533 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:54:07,097 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:54:12,168 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:12,891 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:13,453 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:14,036 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 12
+2019-04-13 15:54:14,898 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:15,262 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:54:16,998 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:17,386 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:17,909 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:54:18,525 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:19,344 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:20,076 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:20,767 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:54:22,803 ERROR main hr.java.vjezbe.utils.Unos - Neispravan datum
+2019-04-13 15:54:25,001 ERROR main hr.java.vjezbe.utils.Unos - Neispravan datum
+2019-04-13 15:54:31,953 ERROR main hr.java.vjezbe.utils.Unos - Neispravan datum
+2019-04-13 15:54:35,214 ERROR main hr.java.vjezbe.utils.Unos - Neispravan unos: null
+2019-04-13 15:54:35,759 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:54:36,462 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:54:37,696 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 4
+2019-04-13 15:54:44,036 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 2
+2019-04-13 15:54:44,704 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 1
+2019-04-13 15:54:46,490 INFO main hr.java.vjezbe.utils.Unos - Unesena vrijednost je: 3

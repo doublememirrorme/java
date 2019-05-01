@@ -1,7 +1,6 @@
 package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import hr.java.vjezbe.utils.Unos;

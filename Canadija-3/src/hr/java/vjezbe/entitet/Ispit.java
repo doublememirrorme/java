@@ -1,7 +1,6 @@
 package hr.java.vjezbe.entitet;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import hr.java.vjezbe.iznimke.NeispravnaOcjena;

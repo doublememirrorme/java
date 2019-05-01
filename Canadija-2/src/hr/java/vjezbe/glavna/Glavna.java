@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 import hr.java.vjezbe.entitet.FakultetRacunarstva;
-import hr.java.vjezbe.entitet.Ispit;
 import hr.java.vjezbe.entitet.ObrazovnaUstanova;
 import hr.java.vjezbe.entitet.Student;
 import hr.java.vjezbe.entitet.VeleucilisteJave;

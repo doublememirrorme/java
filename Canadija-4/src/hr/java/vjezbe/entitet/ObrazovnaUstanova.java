@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import hr.java.vjezbe.sortiranje.StudentSorter;
 import hr.java.vjezbe.utils.Unos;
 
 /**

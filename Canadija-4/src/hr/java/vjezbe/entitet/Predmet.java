@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import hr.java.vjezbe.utils.Unos;
 
@@ -71,11 +72,13 @@ public class Predmet {
 		return student;
 	}
 
-	public SortedSet<Student> getSortedStudent() {
-		return new TreeSet<>(
-				Comparator
+	public Set<Student> getSortedStudent() {
+		return this.student
+				.stream()
+				.sorted(Comparator
 					.comparing(Student::getPrezime)
-					.thenComparing(Student::getIme));
+					.thenComparing(Student::getIme))
+				.collect(Collectors.toSet());
 	}
 	
 	public void setStudent(Set<Student> student) {
